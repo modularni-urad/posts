@@ -1,0 +1,48 @@
+{
+  "name": "@modularni-urad/posts",
+  "version": "1.0.0",
+  "description": "info streams API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node -r esm server.js",
+    "startdbg": "node -r esm --inspect-brk server.js",
+    "test": "mocha -r esm --exit './test/main.js'",
+    "testdbg": "mocha -r esm --inspect --exit './test/main.js'"
+  },
+  "author": "Vaclav Klecanda <vencax77@gmail.com> (http://vxk.cz)",
+  "license": "MIT",
+  "peerDependencies": {
+    "axios": "~0.24.0",
+    "express": "~4.16.2",
+    "underscore": "~1.13.1"
+  },
+  "dependencies": {
+    "diacritics": "^1.3.0",
+    "esm": "^3.2.25",
+    "feed": "^4.2.2",
+    "modularni-urad-utils": "https://github.com/modularni-urad/utils",
+    "moment": "^2.29.2",
+    "slugify": "^1.6.5"
+  },
+  "devDependencies": {
+    "axios": "^0.24.0",
+    "chai": "^4.1.2",
+    "chai-http": "^4.2.0",
+    "deepcopy": "^2.0.0",
+    "entity-api-base": "^0.2.0",
+    "esm": "^3.2.25",
+    "expect": "^1.20.2",
+    "express": "^4.16.2",
+    "jsdom": "^9.8.0",
+    "knex": "^0.95.12",
+    "knex-paginate": "^1.2.1",
+    "mocha": "^8.2.0",
+    "modularni-urad-utils": "^1.5",
+    "morgan": "^1.9.0",
+    "sqlite3": "^4.0.4",
+    "underscore": "^1.13.1"
+  },
+  "engines": {
+    "node": ">=12"
+  }
+}
