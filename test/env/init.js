@@ -25,7 +25,7 @@ module.exports = function (g) {
     const auth = require('modularni-urad-utils/auth').default
     const knex = await dbinit()
     attachPaginate()
-    await ApiModule.migrateDB(knex)
+    await ApiModule.migrate(knex)
 
     const app = express()
     const appContext = { 

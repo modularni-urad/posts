@@ -8,7 +8,7 @@ require('./env/init')(g)
 
 describe('app', () => {
   before(() => {
-    const InitModule = require('../index')
+    const InitModule = require('../index').default
     return g.InitApp(InitModule)
   })
   after(g.close)
@@ -17,7 +17,6 @@ describe('app', () => {
     const submodules = [
       './suites/posts_t',
       './suites/feeds_t'
-      // './suites/settings_t',
     ]
     submodules.map((i) => {
       const subMod = require(i)
