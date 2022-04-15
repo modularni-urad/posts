@@ -16,6 +16,7 @@ describe('app', () => {
   return describe('projectman API', async () => {
     const submodules = [
       './suites/posts_t',
+      './suites/import_t',
       './suites/feeds_t'
     ]
     submodules.map((i) => {

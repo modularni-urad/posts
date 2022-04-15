@@ -16,7 +16,7 @@ export default (ctx) => {
   const { knex, ErrorClass } = ctx
   const entityMW = entityMWBase(conf, knex, ErrorClass)
 
-  return { create, list, update, feed }
+  return { create, list, update, feed, doimport }
   
   async function create (body, user, schema) {
     entityMW.check_data(body)
@@ -25,6 +25,16 @@ export default (ctx) => {
       slug: body.title ? slugify(removeDiacritics(body.title)) : null
     })
     return entityMW.create(body, schema)
+  }
+
+  async function doimport (body, schema) {
+    return Promise.all(body.map(i => {
+      const data = _.omit(i, 'id')
+      data.slug = data.slug ? data.slug : slugify(removeDiacritics(data.title))
+      return entityMW.create(data, schema).catch(err => {
+        return err.toString()
+      })
+    }))
   }
 
   async function update (filename, data, user, schema) {
