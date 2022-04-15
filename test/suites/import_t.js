@@ -17,12 +17,13 @@ module.exports = (g) => {
 
   return describe('import', () => {
     //
-    // it('must not create a new item without auth', async () => {
-    //   const res = await r.post(`/`).send(p)
-    //   res.should.have.status(401)
-    // })
+    it('must not import! without approp group', async () => {
+      const res = await r.post(`/import`).send(data).set('Authorization', 'Bearer f')
+      res.should.have.status(401)
+    })
 
     it('shall import data', async () => {
+      g.mockUser.groups = ['post_importers']
       const res = await r.post(`/import`).send(data).set('Authorization', 'Bearer f')
       res.should.have.status(200, res.text)
       const all = await r.get(`/`)
@@ -34,6 +35,7 @@ module.exports = (g) => {
       res.should.have.status(400, res.text)
       const all = await r.get(`/`)
       all.body.length.should.eql(2)
+      g.mockUser.groups = []
     })
   })
 }

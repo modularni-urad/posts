@@ -3,7 +3,7 @@ import entityMWBase from 'entity-api-base'
 import { remove as removeDiacritics } from 'diacritics'
 import slugify from 'slugify'
 import _ from 'underscore'
-import { TABLE_NAMES } from '../consts'
+import { TABLE_NAMES, GROUPS, getQB } from '../consts'
 import generateFeed from './feeds'
 import moment from 'moment'
 
@@ -16,7 +16,7 @@ export default (ctx) => {
   const { knex, ErrorClass } = ctx
   const entityMW = entityMWBase(conf, knex, ErrorClass)
 
-  return { create, list, update, feed, doimport }
+  return { create, list, update, feed, doimport, setStatus }
   
   async function create (body, user, schema) {
     entityMW.check_data(body)
@@ -33,8 +33,29 @@ export default (ctx) => {
     return entityMW.create(body, schema)
   }
 
-  async function update (filename, data, user, schema) {
-    return entityMW.update(filename, data, schema)
+  function amIPublisher (user) {
+    return Boolean(user.groups && user.groups.find(i => i === GROUPS.PUBLISHERS))
+  }
+
+  async function update (id, data, user, schema) {
+    const item = await entityMW.get(id, schema)
+    const iAmPublisher = amIPublisher(user)
+    const iCanDoIt = iAmPublisher || (
+      (!iAmPublisher && item.status !== 'published' && item.author === user.id.toString()))
+    if (!iCanDoIt) throw new ErrorClass(403, 'you cannot do it')
+    return entityMW.update(id, data, schema)
+  }
+
+  async function setStatus (id, status, user, schema) {
+    const item = await entityMW.get(id, schema)
+    const iAmPublisher = amIPublisher(user)
+    const iCanDoIt = (
+      iAmPublisher ||
+      (!iAmPublisher && item.author === user.id.toString() && ['draft', 'review'].indexOf(status) >= 0)
+    )
+    if (!iCanDoIt) throw new ErrorClass(403, 'you cannot do it')
+    // TODO: integrace do notify
+    return getQB(knex, TABLE_NAMES.POSTS, schema).where({id}).update({ status })
   }
 
   async function list (query, schema) {

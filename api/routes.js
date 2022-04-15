@@ -1,4 +1,5 @@
 import MWare from './middleware'
+import { GROUPS } from '../consts'
 
 export default function (ctx) {
   const { auth, express } = ctx
@@ -26,12 +27,18 @@ export default function (ctx) {
     }).catch(next)
   })
 
-  app.post('/import', auth.session, auth.required, bodyParser, (req, res, next) => {
+  app.post('/import', auth.session, auth.requireMembership(GROUPS.IMPORTERS), bodyParser, (req, res, next) => {
     MW.doimport(req.body, req.tenantid).then(result => res.json(result)).catch(next)
   })
 
-  app.put('/:id', auth.session, auth.required, bodyParser, (req, res, next) => {
+  app.put('/:id', auth.session, bodyParser, (req, res, next) => {
     MW.update(req.params.id, req.body, req.user, req.tenantid).then(result => {
+      res.json(result)
+    }).catch(next)
+  })
+
+  app.put('/:id/status/:status', auth.session, (req, res, next) => {
+    MW.setStatus(req.params.id, req.params.status, req.user, req.tenantid).then(result => {
       res.json(result)
     }).catch(next)
   })

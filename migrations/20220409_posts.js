@@ -14,6 +14,7 @@ exports.up = (knex, Promise) => {
     table.string('image')
     table.string('tags').notNullable()
     table.string('author').notNullable()
+    table.string('publisher')
     table.text('content').notNullable()
     table.timestamp('published')
     table.string('status', 16).notNullable().defaultTo('draft')
