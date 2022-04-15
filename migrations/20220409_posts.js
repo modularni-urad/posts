@@ -7,9 +7,9 @@ exports.up = (knex, Promise) => {
 
   return builder.createTable(TABLE_NAMES.POSTS, (table) => {
     table.increments('id').primary()
-    table.string('uuid', 32)
+    table.string('uuid', 36)
     table.string('title', 512).notNullable()
-    table.string('slug', 512).notNullable()
+    table.string('slug', 512).notNullable().unique()
     table.string('perex', 1024).notNullable()
     table.string('image')
     table.string('tags').notNullable()

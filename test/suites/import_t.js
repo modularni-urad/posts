@@ -28,5 +28,12 @@ module.exports = (g) => {
       const all = await r.get(`/`)
       all.body.length.should.eql(2)
     })
+
+    it('must not import the same data', async () => {
+      const res = await r.post(`/import`).send(data).set('Authorization', 'Bearer f')
+      res.should.have.status(400, res.text)
+      const all = await r.get(`/`)
+      all.body.length.should.eql(2)
+    })
   })
 }
