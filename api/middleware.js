@@ -27,14 +27,10 @@ export default (ctx) => {
     return entityMW.create(body, schema)
   }
 
-  async function doimport (body, schema) {
-    return Promise.all(body.map(i => {
-      const data = _.omit(i, 'id')
-      data.slug = data.slug ? data.slug : slugify(removeDiacritics(data.title))
-      return entityMW.create(data, schema).catch(err => {
-        return err.toString()
-      })
-    }))
+  function doimport (body, schema) {
+    body = _.omit(body, 'id')
+    body.slug = body.slug ? body.slug : slugify(removeDiacritics(body.title))
+    return entityMW.create(body, schema)
   }
 
   async function update (filename, data, user, schema) {
