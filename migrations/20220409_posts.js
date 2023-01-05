@@ -1,4 +1,4 @@
-import { TABLE_NAMES } from '../consts'
+import { TABLE_NAMES, STATUSES } from '../consts'
 
 exports.up = (knex, Promise) => {
   const builder = process.env.CUSTOM_MIGRATION_SCHEMA
@@ -17,7 +17,7 @@ exports.up = (knex, Promise) => {
     table.string('publisher')
     table.text('content').notNullable()
     table.timestamp('published')
-    table.string('status', 16).notNullable().defaultTo('draft')
+    table.string('status', 16).notNullable().defaultTo(STATUSES.DRAFT)
     table.timestamp('created').notNullable().defaultTo(knex.fn.now())
   })
 }

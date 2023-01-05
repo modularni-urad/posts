@@ -71,6 +71,11 @@ module.exports = (g) => {
       res.should.have.status(403, res.status)
     })
 
+    it('must not set unknown sataus', async () => {
+      const res = await r.put(`/${p.id}/status/unknown`).set('Authorization', 'Bearer f')
+      res.should.have.status(400, res.status)
+    })
+
     it('shall set status to review', async () => {
       const res = await r.put(`/${p.id}/status/review`).set('Authorization', 'Bearer f')
       res.should.have.status(200, res.status)

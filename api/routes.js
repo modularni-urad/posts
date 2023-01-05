@@ -38,14 +38,15 @@ export default function (ctx) {
   })
 
   app.put('/:id', 
-  auth.session, bodyParser, validateOnUpdate,
+  auth.session, auth.required, bodyParser, validateOnUpdate,
   (req, res, next) => {
     MW.update(Number(req.params.id), req.body, req.user, req.tenantid).then(result => {
       res.json(result)
     }).catch(next)
   })
 
-  app.put('/:id/status/:status', auth.session, (req, res, next) => {
+  app.put('/:id/status/:status', 
+  auth.session, auth.required, (req, res, next) => {
     MW.setStatus(Number(req.params.id), req.params.status, req.user, req.tenantid)
     .then(result => {
       res.json(result)

@@ -2,9 +2,9 @@
 import { remove as removeDiacritics } from 'diacritics'
 import slugify from 'slugify'
 import _ from 'underscore'
-import { TABLE_NAMES, GROUPS, getQB } from '../consts'
+import { TABLE_NAMES, GROUPS, STATUSES, getQB } from '../consts'
 import { listItems } from '@modularni-urad/utils/entity'
-import { NotAllowedError, NotFoundError } from '@modularni-urad/utils/errors'
+import { NotAllowedError, NotFoundError, APIError } from '@modularni-urad/utils/errors'
 import generateFeed from './feeds'
 import moment from 'moment'
 
@@ -49,6 +49,9 @@ export default (ctx) => {
   }
 
   async function setStatus (id, status, user, schema) {
+    if (Object.values(STATUSES).indexOf(status) < 0) {
+      throw new APIError(400, 'unknown status')
+    }
     const item = await get(id, schema)
     const iAmPublisher = amIPublisher(user)
     const iCanDoIt = (

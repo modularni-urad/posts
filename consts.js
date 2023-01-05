@@ -8,6 +8,13 @@ export const GROUPS = {
   IMPORTERS: 'post_importers'
 }
 
+export const STATUSES = {
+  DRAFT: 'draft',
+  REVIEW: 'review',
+  RETURNED: 'returned',
+  PUBLISHED: 'published'
+}
+
 export function getQB (knex, tablename, schema) {
   return schema
     ? knex(knex.ref(tablename).withSchema(schema))
