@@ -11,7 +11,6 @@ export const GROUPS = {
 export const STATUSES = {
   DRAFT: 'draft',
   REVIEW: 'review',
-  RETURNED: 'returned',
   PUBLISHED: 'published'
 }
 
