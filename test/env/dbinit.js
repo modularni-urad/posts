@@ -7,7 +7,7 @@ export default async function initDB () {
       filename: process.env.DATABASE_URL
     },
     useNullAsDefault: true,
-    debug: true
+    debug: false
   }
   const knex = Knex(opts)
 

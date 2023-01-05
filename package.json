@@ -20,7 +20,7 @@
     "diacritics": "^1.3.0",
     "esm": "^3.2.25",
     "feed": "^4.2.2",
-    "modularni-urad-utils": "https://github.com/modularni-urad/utils",
+    "modularni-urad-utils": "https://github.com/modularni-urad/utils#2",
     "moment": "^2.29.2",
     "slugify": "^1.6.5"
   },
