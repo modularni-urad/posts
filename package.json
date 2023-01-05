@@ -14,13 +14,13 @@
   "peerDependencies": {
     "axios": "~0.24.0",
     "express": "~4.16.2",
-    "underscore": "~1.13.1"
+    "underscore": "~1.13.1",
+    "@modularni-urad/utils": "https://github.com/modularni-urad/utils#2"
   },
   "dependencies": {
     "diacritics": "^1.3.0",
     "esm": "^3.2.25",
     "feed": "^4.2.2",
-    "modularni-urad-utils": "https://github.com/modularni-urad/utils#2",
     "moment": "^2.29.2",
     "slugify": "^1.6.5"
   },
@@ -35,9 +35,9 @@
     "express": "^4.16.2",
     "jsdom": "^9.8.0",
     "knex": "^2.3.0",
-    "knex-paginate": "^1.2.1",
+    "knex-paginate": "^3",
     "mocha": "^8.2.0",
-    "modularni-urad-utils": "^1.5",
+    "@modularni-urad/utils": "https://github.com/modularni-urad/utils#2",
     "morgan": "^1.9.0",
     "underscore": "^1.13.1"
   },

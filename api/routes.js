@@ -1,6 +1,6 @@
 import MWare from './middleware'
 import { createSchemaFn, updateSchemaFn } from './schema'
-import { createValidationMiddleware } from 'modularni-urad-utils/entity'
+import { createValidationMiddleware } from '@modularni-urad/utils/entity'
 import { GROUPS } from '../consts'
 
 export default function (ctx) {

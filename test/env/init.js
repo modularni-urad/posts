@@ -1,7 +1,7 @@
 import express from 'express'
-import initErrorHandlers from 'modularni-urad-utils/error_handlers'
+import initErrorHandlers from '@modularni-urad/utils/error_handlers'
 import { attachPaginate } from 'knex-paginate'
-const SessionServiceMock = require('modularni-urad-utils/test/mocks/sessionService')
+const SessionServiceMock = require('@modularni-urad/utils/test/mocks/sessionService')
 
 process.env.DATABASE_URL = ':memory:'
 process.env.NODE_ENV = 'test'
@@ -21,7 +21,7 @@ module.exports = function (g) {
   const dbinit = require('./dbinit').default
 
   g.InitApp = async function (ApiModule) {
-    const auth = require('modularni-urad-utils/auth').default
+    const auth = require('@modularni-urad/utils/auth').default
     const knex = await dbinit()
     attachPaginate()
     await ApiModule.migrate(knex)
