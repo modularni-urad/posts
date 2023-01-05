@@ -1,6 +1,5 @@
 import express from 'express'
-import { APIError } from 'modularni-urad-utils'
-import entityMWBase from 'entity-api-base'
+import initErrorHandlers from 'modularni-urad-utils/error_handlers'
 import { attachPaginate } from 'knex-paginate'
 const SessionServiceMock = require('modularni-urad-utils/test/mocks/sessionService')
 
@@ -30,18 +29,13 @@ module.exports = function (g) {
     const app = express()
     const appContext = { 
       express, knex, auth, 
-      bodyParser: express.json(),
-      ErrorClass: APIError,
-      entityMWBase
+      bodyParser: express.json()
     }
     const mwarez = ApiModule.init(appContext)
     app.use(mwarez)
 
-    app.use((error, req, res, next) => {
-      if (error instanceof APIError) {
-        return res.status(error.name).send(error.message)
-      }
-      res.status(500).send(error.message || error.toString())
+    initErrorHandlers(app, (err) => {
+      console.error(err)
     })
 
     return new Promise((resolve, reject) => {

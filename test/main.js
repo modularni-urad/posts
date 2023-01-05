@@ -13,7 +13,7 @@ describe('app', () => {
   })
   after(g.close)
 
-  return describe('poosts API', async () => {
+  return describe('posts API', async () => {
     const submodules = [
       './suites/posts_t',
       './suites/import_t',

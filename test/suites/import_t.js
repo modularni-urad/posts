@@ -19,7 +19,7 @@ module.exports = (g) => {
     //
     it('must not import! without approp group', async () => {
       const res = await r.post(`/import`).send(data).set('Authorization', 'Bearer f')
-      res.should.have.status(401)
+      res.should.have.status(403)
     })
 
     it('shall import data', async () => {

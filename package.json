@@ -26,20 +26,19 @@
   },
   "devDependencies": {
     "axios": "^0.24.0",
+    "better-sqlite3": "^8.0.1",
     "chai": "^4.1.2",
     "chai-http": "^4.2.0",
     "deepcopy": "^2.0.0",
-    "entity-api-base": "^0.2.0",
     "esm": "^3.2.25",
     "expect": "^1.20.2",
     "express": "^4.16.2",
     "jsdom": "^9.8.0",
-    "knex": "^0.95.12",
+    "knex": "^2.3.0",
     "knex-paginate": "^1.2.1",
     "mocha": "^8.2.0",
     "modularni-urad-utils": "^1.5",
     "morgan": "^1.9.0",
-    "sqlite3": "^4.0.4",
     "underscore": "^1.13.1"
   },
   "engines": {

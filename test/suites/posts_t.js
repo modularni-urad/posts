@@ -28,8 +28,7 @@ module.exports = (g) => {
       const res = await r.post(`/`).send(p).set('Authorization', 'Bearer f')
       res.should.have.status(201, res.text)
       res.should.have.header('content-type', /^application\/json/)
-      const all = await r.get(`/`)
-      p.id = all.body[0].id
+      p.id = res.body.id
     })
 
     it('shall update the item pok1', async () => {
@@ -63,8 +62,8 @@ module.exports = (g) => {
       g.mockUser.groups = []
       const res = await r.get(`/`)
       res.body.length.should.eql(1)
-      res.body[0].title.should.eql('change3')
-      res.should.have.status(200)
+      res.body[0].title.should.eql('change3', res.body[0].title)
+      res.should.have.status(200, res.status)
     })
 
     it('must not set status published, iam not publisher', async () => {
